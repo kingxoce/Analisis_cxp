@@ -16,6 +16,9 @@ const App = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
+            <NavDropdown title="Movimientos" id="basic-nav-dropdown">
+              <NavDropdown.Item href="/pagosmasivos">Pagos Masivos</NavDropdown.Item>
+            </NavDropdown>
             <NavDropdown title="Reportes" id="basic-nav-dropdown">
               <NavDropdown.Item href="/topproveedores">Top 5 Proveedores</NavDropdown.Item>
             </NavDropdown>
