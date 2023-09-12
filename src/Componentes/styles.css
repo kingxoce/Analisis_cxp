@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Cookie&family=Righteous&family=Urbanist:wght@100&display=swap');
+
+body {
+    font-family: 'Urbanist', sans-serif;
+}
+
+h1 {
+    font-weight: bold;
+}
+
+.modal-title {
+    color: #656668;
+    font-weight:600;
+}
+
+label {
+    color: #000000;
+}
+
+.is-invalid {
+    border-color: red !important;
+}
+
