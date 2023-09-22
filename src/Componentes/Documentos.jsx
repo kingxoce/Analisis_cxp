@@ -131,7 +131,7 @@ const Documentos = () => {
           <Modal.Header closeButton>
             <Modal.Title>{modalTitle}</Modal.Title>
           </Modal.Header>
-          <Modal.Body>
+          <Modal.Body style={{ maxHeight: 'calc(100vh - 200px)', overflowY: 'scroll' }}>
             <Form>
               <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Tipo</Form.Label>

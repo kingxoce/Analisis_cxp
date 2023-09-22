@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Table, Modal, Form } from 'react-bootstrap';
 import { BsPlus, BsPencil, BsTrash, BsSearch, BsCalendar } from 'react-icons/bs';
-import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import './styles.css';
 
@@ -127,7 +126,7 @@ const TiposPagos = () => {
           <Modal.Header closeButton>
             <Modal.Title>{modalTitle}</Modal.Title>
           </Modal.Header>
-          <Modal.Body>
+          <Modal.Body style={{ maxHeight: 'calc(100vh - 200px)', overflowY: 'scroll' }}>
             <Form>
             <Form.Group className="mb-3" controlId="name">
                 <Form.Label>Nombre</Form.Label>
