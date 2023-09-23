@@ -18,6 +18,7 @@ const App = () => {
           <Nav className="mr-auto">
             <NavDropdown title="Movimientos" id="basic-nav-dropdown">
               <NavDropdown.Item href="/pagosmasivos">Pagos Masivos</NavDropdown.Item>
+              <NavDropdown.Item href="/retencionesinsert">Crear Retencion</NavDropdown.Item>
             </NavDropdown>
             <NavDropdown title="Reportes" id="basic-nav-dropdown">
               <NavDropdown.Item href="/topproveedores">Top 5 Proveedores</NavDropdown.Item>
@@ -26,6 +27,7 @@ const App = () => {
               <NavDropdown.Item href="/documentos">Documentos</NavDropdown.Item>
               <NavDropdown.Item href="/tipopago">Tipos de Pago</NavDropdown.Item>
               <NavDropdown.Item href="/facturas">Facturas</NavDropdown.Item>
+              <NavDropdown.Item href="/facturaespecial">Factura Especial</NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
