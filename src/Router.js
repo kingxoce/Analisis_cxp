@@ -18,8 +18,15 @@ const AppRouter = () => {
         <Route path="/documentos" element={<Documentos />} />
         <Route path="/tipopago" element={<TipoPagos />} />
         <Route path="/topproveedores" element={<TopProveedores />} />
+
         <Route path="/retencionesinsert" element={<RetencionesInsert/>}/>
         <Route path="/facturaespecial" element={<FacturaEspecial/>}/>
+        <Route path="/Abonos" element={<Abonos />} />
+        <Route path="/NotaD" element={<NotaD />} />
+        <Route path="/ANT" element={<ANT />} />
+        <Route path="/ANTP" element={<ANTP />} />
+        <Route path="/toppro" element={<TopProducts />} />
+
       </Routes>
     </Router>
   );

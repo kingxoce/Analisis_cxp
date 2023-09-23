@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Button, Table, Modal, Form } from 'react-bootstrap';
-import { BsPlus, BsPencil, BsTrash, BsSearch, BsCalendar } from 'react-icons/bs';
+import { BsPlus, BsPencil, BsTrash, BsSearch, BsCalendar,BsPrinter } from 'react-icons/bs';
+import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import './styles.css';
 
-const TiposPagos = () => {
+const NotaD = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedName, setSelectedName] = useState(null);
@@ -13,9 +14,9 @@ const TiposPagos = () => {
   const [modalTitle, setModalTitle] = useState('');
   const [searchTerm, setSearchTerm] = useState(''); // Declaración de searchTerm en el estado
   const [tableData, setTableData] = useState([
-    { id: 1, nombre: 'Pago 1', tipo: 'Tipo 1', estado: 'Activo' },
-    { id: 2, nombre: 'Pago 2', tipo: 'Tipo 2', estado: 'Activo' },
-    { id: 3, nombre: 'Pago 3', tipo: 'Tipo 3', estado: 'Inactivo' },
+    { id: 1, proveedor: 'Proveedor A', Nit: '123456789',total: 'Q1000.00', Factura: '123131312', fecha: 'dd/mm/aaaa' },
+    { id: 2, proveedor: 'Proveedor B', Nit: '987654321', total: 'Q2000.00', Factura: '123131223',fecha: 'dd/mm/aaaa' },
+    { id: 3, proveedor: 'Proveedor C', Nit: '098765432', total: 'Q4000.00', Factura: '634345345',fecha: 'dd/mm/aaaa' },
   ]);
 
   const handleCloseModal = () => {
@@ -25,11 +26,11 @@ const TiposPagos = () => {
   const handleOpenModal = (id) => {
     setModalId(id);
     if (id === 0) {
-      setModalTitle('Nuevo Tipo de Pago');
+      setModalTitle('Nueva Nota de débito');
       setSelectedName('');
       setSelectedDate(null);
     } else {
-      setModalTitle('Editar Tipo de Pago');
+      setModalTitle('Editar Nota de débito');
       // cargar los últimos campos agregados o editados
       setSelectedName('Último nombre');
       setSelectedDate(new Date());
@@ -43,6 +44,10 @@ const TiposPagos = () => {
 
   const handleSave = () => {
     const errors = {};
+
+    if (!selectedDate) {
+      errors.fechaCotizacion = 'Por favor, selecciona una fecha';
+    }
 
     if (!selectedName) {
       errors.nombre = 'Por favor, ingresa un nombre';
@@ -61,16 +66,18 @@ const TiposPagos = () => {
 
   const filteredData = tableData.filter((item) => {
     return (
-      item.nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.tipo.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.estado.toLowerCase().includes(searchTerm.toLowerCase())
+      item.proveedor.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.Nit.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.tipop.toLowerCase().includes(searchTerm.toLowerCase())||
+      item.total.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.Factura.toLowerCase().includes(searchTerm.toLowerCase())
     );
   });
 
   return (
     <div>
       <div style={{ display: 'flex', alignItems: 'center', marginTop: '2%', marginBottom: '10%', marginLeft: '2%' }}>
-        <h1 style={{ marginRight: '10px' }}><b>Tipo de Pagos</b></h1>
+        <h1 style={{ marginRight: '10px' }}><b>Notas de débito</b></h1>
         <Button variant="success" onClick={() => handleOpenModal(0)} style={{ borderRadius: '50%', padding: '8px' }}>
           <BsPlus size={30} />
         </Button>
@@ -97,9 +104,11 @@ const TiposPagos = () => {
           <thead>
             <tr>
               <th>ID</th>
-              <th>Nombre</th>
-              <th>Tipo</th>
-              <th>Estado</th>
+              <th>Proveedor</th>
+              <th>Nit</th>
+              <th>Factura</th>
+              <th>Fecha</th>
+              <th>Total</th>
               <th>Acciones</th>
             </tr>
           </thead>
@@ -107,9 +116,11 @@ const TiposPagos = () => {
             {filteredData.map((item) => (
               <tr key={item.id}>
                 <td>{item.id}</td>
-                <td>{item.nombre}</td>
-                <td>{item.tipo}</td>
-                <td>{item.estado}</td>
+                <td>{item.proveedor}</td>
+                <td>{item.Nit}</td>
+                <td>{item.Factura}</td>
+                <td>{item.fecha}</td>
+                <td>{item.total}</td>
                 <td>
                   <Button variant="warning" onClick={() => handleOpenModal(item.id)}>
                     <BsPencil />
@@ -128,32 +139,35 @@ const TiposPagos = () => {
           </Modal.Header>
           <Modal.Body style={{ maxHeight: 'calc(100vh - 200px)', overflowY: 'scroll' }}>
             <Form>
-            <Form.Group className="mb-3" controlId="name">
-                <Form.Label>Nombre</Form.Label>
+              <Form.Group className="mb-3" controlId="formBasicEmail">
+                <Form.Label>Proveedor</Form.Label>
+                <Form.Select aria-label="Default select example" style={{ width: "80%" }}>
+                  <option value="true">Proveedor A</option>
+                  <option value="false">Proveedor B</option>
+                  <option value="true">Proveedor C</option>
+                  <option value="false">Proveedor D</option>
+                </Form.Select>
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicEmail">
+                <Form.Label>Factura</Form.Label>
+                <Form.Select aria-label="Default select example" style={{ width: "80%" }}>
+                  <option value="true">1234567899</option>
+                  <option value="false">9987654321</option>
+                  <option value="true">00987654321</option>
+                  <option value="false">01018765321</option>
+                </Form.Select>
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicEmail">
+                <Form.Label>Total</Form.Label>
                 <Form.Control
                   type="text"
                   className={`form-control ${formErrors.nombre ? 'is-invalid' : ''}`}
-                  placeholder=""
+                  placeholder="Total"
                   style={{ width: "50%" }}
                   value={selectedName}
                   onChange={(e) => setSelectedName(e.target.value)}
                 />
                 {formErrors.nombre && <span className="invalid-feedback">{formErrors.nombre}</span>}
-              </Form.Group>
-              <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Tipo</Form.Label>
-                <Form.Select aria-label="Default select example" style={{ width: "50%" }}>
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
-                </Form.Select>
-              </Form.Group>
-              <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>¿Se encuentra activo?</Form.Label>
-                <Form.Select aria-label="Default select example" style={{ width: "20%" }}>
-                  <option value="true">Sí</option>
-                  <option value="false">No</option>
-                </Form.Select>
               </Form.Group>
             </Form>
           </Modal.Body>
@@ -171,4 +185,4 @@ const TiposPagos = () => {
   );
 };
 
-export default TiposPagos;
+export default NotaD;
