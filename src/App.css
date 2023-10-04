@@ -1,9 +1,98 @@
 @import url('https://fonts.googleapis.com/css2?family=Cookie&family=Righteous&family=Urbanist:wght@100&display=swap');
 
+.navegador{
+    margin-bottom: 4px;
+}
 h4 {
     font-family: 'Cookie', cursive;
+    color: #039;
+}
+img {
+    margin: 0;
+    padding: 0;
+    width: 30%;
 }
 
-a {
-    font-family: 'Urbanist', sans-serif;
+.nav{
+    position: relative;
+    z-index: 2;
 }
+
+.nav a {
+    color: rgb(0, 0, 0);
+    font-size: 20px;
+}
+
+.dropdown-menu a {
+    font-size: 16px;
+}
+  
+.nav a:hover {
+    color: #039;
+}
+
+.home{
+    width: 100%;
+    padding: 5%;
+}
+
+.mod-welcome {
+    width: 100%;
+    padding: 5%;
+    height: 300px;
+    background-color: #ffdc00;
+    position: relative;
+    border-radius: 20px;
+}
+
+.mod-welcome p {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    font-size: 70px;
+    color: #039;
+    z-index: 1;
+}
+
+
+.mod-welcome .image-overlay {
+    position: absolute;
+    top: 25%; /* Ajusta la posición vertical de la imagen */
+    left: 0;
+    margin: 0;
+    transform: translateY(-50%); /* Centra verticalmente la imagen */
+    width: 500px; /* Ajusta el ancho de la imagen */
+    height: 100%; /* Ajusta la altura de la imagen */
+    background-image: url('./Images/pincel-color.png'); /* Reemplaza 'ruta-de-la-imagen.jpg' con la ruta de tu imagen */
+    background-size: cover;
+    animation: paintText 10s linear infinite; /* Ajusta la duración de la animación */
+}
+  
+@keyframes paintText {
+    0% {
+      left: 0;
+    }
+    100% {
+      left: 60%;
+    }
+}
+
+.botones {
+    margin: 5%;
+    text-align: center;
+}
+
+.botones button{
+    background-color: #039;
+    width: 50px;
+    height: 50px;
+    padding: 2px;
+}
+
+.botones button svg{
+    width: 30px;
+    height: 30px;
+    margin: 0;
+}
+
+

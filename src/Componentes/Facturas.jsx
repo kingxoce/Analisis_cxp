@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
 import { Button, Table, Modal, Form } from 'react-bootstrap';
-import { BsPlus, BsPencil, BsTrash, BsSearch, BsCalendar } from 'react-icons/bs';
+import { BsPlus, BsPencil, BsTrash, BsSearch, BsCalendar,BsGearFill, BsFillPrinterFill } from 'react-icons/bs';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import './styles.css';
+import { BlobProvider } from '@react-pdf/renderer';
+import FacturaPdf from './FacturaPdf';
 
 const Facturas = () => {
   const [showModal, setShowModal] = useState(false);
+  const [showNewModal, setShowNewModal] = useState(false);
+  const [newAmount, setNewAmount] = useState('');
+  //impresion de facturas
+  const [selectedFactura, setSelectedFactura] = useState(null);
   //campos del modal
   const [selectedAutorizacion, setSelectedAutorizacion] = useState(null);
   const [selectedSerie, setSelectedSerie] = useState(null);
@@ -28,15 +34,21 @@ const Facturas = () => {
   const [tableData, setTableData] = useState([
     { id: 1, tipo: 'Factura', autorizacion: 'BD26DE61-D25F-4F91-899C-135C98E99CEA', serie: 'BD26DE61', 
         dte: '3529461649', correlativo: '1', fecha: '21-09-2023', fechaPago: '01-10-2023', desc: 'pago de impuesto',
-        nit: '107313790', proveedor: 'SAC INC', total: 'Q.50', saldo: 'Q.100', pago: 'Q.50' },
+        nit: '107313790', proveedor: 'SAC INC', total: '50', saldo: '100', pago: '50' },
     { id: 2, tipo: 'Factura', autorizacion: 'BD26DE61-D25F-4F91-899C-135C98E99CEA', serie: 'BD26DE61', 
         dte: '3529461649', correlativo: '1', fecha: '21-09-2023', fechaPago: '01-10-2023', desc: 'pago de impuesto',
-        nit: '107313790', proveedor: 'PORIV', total: 'Q.50', saldo: 'Q.100', pago: 'Q.50' },
+        nit: '107313790', proveedor: 'PORIV', total: '150', saldo: '0', pago: '50' },
   ]);
 
   const handleCloseModal = () => {
     setShowModal(false);
   };
+
+  const handleFacturaData = (item) => {
+    // Aquí asigna los datos de la fila a la variable facturaData
+    setSelectedFactura(item);
+  };
+
 
   const handleOpenModal = (id) => {
     setModalId(id);
@@ -70,6 +82,19 @@ const Facturas = () => {
     setShowModal(true);
   };
 
+  const handleOpenNewModal = () => {
+    setShowNewModal(true);
+  };
+  
+  const handleCloseNewModal = () => {
+    setShowNewModal(false);
+  };
+  
+  const handleSaveNewModal = () => {
+    // Aquí puedes realizar cualquier acción que necesites con el nuevo monto ingresado
+    handleCloseNewModal();
+  };
+
   const handleFechaChange = (date) => {
     setSelectedFecha(date);
   };
@@ -81,7 +106,7 @@ const Facturas = () => {
   const handleSave = () => {
     const errors = {};
     if (!selectedAutorizacion) {
-      errors.autorizacion = 'Por favor, ingrese el numero de autorizacion';
+      errors.autorizacion = 'Por favor, ingrese el número de autorización';
     }
     if (!selectedSerie) {
         errors.serie = 'Por favor, ingrese la serie de la factura';
@@ -99,7 +124,7 @@ const Facturas = () => {
         errors.fechaPago = 'Por favor, ingrese la fecha de pago';
     }
     if (!selectedDesc) {
-        errors.desc = 'Por favor, ingrese la descripcion de la factura';
+        errors.desc = 'Por favor, ingrese la descripción de la factura';
     }
     if (!selectedNit) {
         errors.nit = 'Por favor, ingrese un nit';
@@ -124,20 +149,23 @@ const Facturas = () => {
 
   //BUSCADOR DINAMICO ENTRE COLUMNAS
   const filteredData = tableData.filter((item) => {
+    const total = parseFloat(item.total);
+    const saldo = parseFloat(item.saldo);
+
     return (
-      item.tipo.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.autorizacion.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.serie.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.dte.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.correlativo.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.fecha.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.fechaPago.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.desc.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.nit.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.proveedor.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.total.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.saldo.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.pago.toLowerCase().includes(searchTerm.toLowerCase()) 
+        item.tipo.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.autorizacion.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.serie.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.dte.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.correlativo.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.fecha.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.fechaPago.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.desc.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.nit.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.proveedor.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        (total === searchTerm) ||
+        (saldo === searchTerm) ||
+        item.pago.toLowerCase().includes(searchTerm.toLowerCase()) 
     );
   });
 
@@ -149,7 +177,7 @@ const Facturas = () => {
           <BsPlus size={30} />
         </Button>
       </div>
-      <div style={{ margin: '5%' }}>
+      <div style={{ margin: '3%' }}>
         <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '10px' }}>
           <Form.Control
             type="text"
@@ -167,54 +195,75 @@ const Facturas = () => {
             }}
           />
         </div>
-        <Table striped bordered hover>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Tipo</th>
-              <th>No. Autorizacion</th>
-              <th>Serie</th>
-              <th>DTE</th>
-              <th>Correlativo</th>
-              <th>Fecha</th>
-              <th style={{width:'9%'}}>Fecha de Pago</th>
-              <th>Descripcion</th>
-              <th>Nit</th>
-              <th>Proveedor</th>
-              <th>Total</th>
-              <th>Saldo</th>
-              <th>Pago</th>
-              <th style={{textAlign:'center', width:'10%'}} >Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredData.map((item) => (
-              <tr key={item.id}>
-                <td>{item.id}</td>
-                <td>{item.tipo}</td>
-                <td>{item.autorizacion}</td>
-                <td>{item.serie}</td>
-                <td>{item.dte}</td>
-                <td>{item.correlativo}</td>
-                <td style={{width:'7%'}}>{item.fecha}</td>
-                <td>{item.fechaPago}</td>
-                <td>{item.desc}</td>
-                <td>{item.nit}</td>
-                <td>{item.proveedor}</td>
-                <td>{item.total}</td>
-                <td>{item.saldo}</td>
-                <td>{item.pago}</td>
-                <td style={{textAlign:'center'}}>
-                  <Button variant="warning" onClick={() => handleOpenModal(item.id)}>
-                    <BsPencil />
-                  </Button>{' '}
-                  <Button variant="danger">
-                    <BsTrash />
-                  </Button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
+        <Table bordered hover striped>
+            <thead>
+                <tr>
+                <th>ID</th>
+                <th>Tipo</th>
+                <th>No. Autorización</th>
+                <th>Serie</th>
+                <th>DTE</th>
+                <th>Correlativo</th>
+                <th>Fecha</th>
+                <th style={{width:'9%'}}>Fecha de Pago</th>
+                <th>Descripción</th>
+                <th>Nit</th>
+                <th>Proveedor</th>
+                <th>Total</th>
+                <th>Saldo</th>
+                <th>Pago</th>
+                <th style={{textAlign:'center', width:'11%'}} >Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {filteredData.map((item) => {
+                    const saldoRestante = item.total - item.pago;
+                    return (
+                        <tr key={item.id} rowData={item} onSelectRow={handleFacturaData}>
+                        <td>{item.id}</td>
+                        <td>{item.tipo}</td>
+                        <td>{item.autorizacion}</td>
+                        <td>{item.serie}</td>
+                        <td>{item.dte}</td>
+                        <td>{item.correlativo}</td>
+                        <td style={{ width: '7%' }}>{item.fecha}</td>
+                        <td>{item.fechaPago}</td>
+                        <td>{item.desc}</td>
+                        <td>{item.nit}</td>
+                        <td>{item.proveedor}</td>
+                        <td>{item.total}</td>
+                        <td>{saldoRestante}</td>
+                        <td>{item.pago}</td>
+                        <td style={{ textAlign: 'center' }}>
+                            <Button variant="warning" onClick={() => handleOpenModal(item.id)}>
+                            <BsPencil />
+                            </Button>{' '}
+                            {saldoRestante === 0 ? (
+                            <BlobProvider document={<FacturaPdf facturaData={item} />}>
+                              {({ blob, url, loading, error }) => (
+                                <>
+                                  <Button variant="secondary" onClick={() => window.open(url)}>
+                                    <BsFillPrinterFill />
+                                  </Button>
+                                  {loading && <div>Cargando PDF...</div>}
+                                  {error && <div>Error al generar el PDF</div>}
+                                </>
+                              )}
+                            </BlobProvider>
+                            ) : (
+                            <Button variant="primary" onClick={handleOpenNewModal}>
+                                <BsGearFill />
+                            </Button>
+                            )}
+                            {' '}
+                            <Button variant="danger">
+                            <BsTrash />
+                            </Button>
+                        </td>
+                        </tr>
+                    );
+                })}
+            </tbody>
         </Table>
         <Modal show={showModal} onHide={handleCloseModal}>
           <Modal.Header closeButton>
@@ -231,7 +280,7 @@ const Facturas = () => {
                     </Form.Select>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="autorizacion">
-                    <Form.Label>No. Autorizacion</Form.Label>
+                    <Form.Label>No. Autorización</Form.Label>
                     <Form.Control
                     type="text"
                     className={`form-control ${formErrors.autorizacion ? 'is-invalid' : ''}`}
@@ -330,7 +379,7 @@ const Facturas = () => {
                     </div>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="desc">
-                    <Form.Label>Descripcion</Form.Label>
+                    <Form.Label>Descripción</Form.Label>
                     <Form.Control
                     type="text"
                     className={`form-control ${formErrors.desc ? 'is-invalid' : ''}`}
@@ -393,6 +442,32 @@ const Facturas = () => {
               Cerrar
             </Button>
           </Modal.Footer>
+        </Modal>
+        <Modal show={showNewModal} onHide={handleCloseNewModal} aria-labelledby="contained-modal-title-vcenter" centered>
+            <Modal.Header closeButton>
+                <Modal.Title>Monto a Pagar</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <Form>
+                <Form.Group className="mb-3" controlId="newAmount">
+                    <Form.Label>Monto</Form.Label>
+                    <Form.Control
+                    type="number"
+                    placeholder="Ingrese la cantidad"
+                    value={newAmount}
+                    onChange={(e) => setNewAmount(e.target.value)}
+                    />
+                </Form.Group>
+                </Form>
+            </Modal.Body>
+            <Modal.Footer>
+                <Button variant="success" onClick={handleSaveNewModal}>
+                    Aplicar
+                </Button>
+                <Button variant="secondary" onClick={handleCloseNewModal}>
+                    Cancelar
+                </Button>
+            </Modal.Footer>
         </Modal>
       </div>
     </div>

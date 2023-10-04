@@ -75,7 +75,7 @@ const TiposPagos = () => {
           <BsPlus size={30} />
         </Button>
       </div>
-      <div style={{ margin: '5%' }}>
+      <div style={{ margin: '3%' }}>
         <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '10px' }}>
           <Form.Control
             type="text"
