@@ -5,7 +5,8 @@ import Mantenimientos from './Componentes/Mantenimientos';
 import Documentos from './Componentes/Documentos';
 import TipoPagos from './Componentes/TipoPagos';
 import TopProveedores from './Componentes/TopProveedores';
-import Facturas from './Componentes/Facturas';
+import RetencionesInsert from './Componentes/RetencionesInsert';
+import FacturaEspecial from './Componentes/FacturaEspecial';
 
 const AppRouter = () => {
   return (
@@ -16,7 +17,6 @@ const AppRouter = () => {
         <Route path="/documentos" element={<Documentos />} />
         <Route path="/tipopago" element={<TipoPagos />} />
         <Route path="/topproveedores" element={<TopProveedores />} />
-        <Route path="/facturas" element={<Facturas />} />
       </Routes>
     </Router>
   );
