@@ -5,6 +5,12 @@ import Documentos from './Componentes/Documentos';
 import TipoPagos from './Componentes/TipoPagos';
 import TopProveedores from './Componentes/TopProveedores';
 import Factura from './Componentes/Facturas';
+import NotaD from './Componentes/Nota_debito';
+import Abonos from './Componentes/Abonos';
+import ANT from './Componentes/Antiguedad_saldos';
+import ANTP from './Componentes/Antiguedad_saldosp';
+import TopProducts from './Componentes/TopProductos';
+
 
 const AppRouter = () => {
   return (
@@ -16,6 +22,11 @@ const AppRouter = () => {
         <Route path="/tipopago" element={<TipoPagos />} />
         <Route path="/topproveedores" element={<TopProveedores />} />
         <Route path="/facturas" element={<Factura />} />
+        <Route path="/ANT" element={<ANT />} />
+        <Route path="/ANTP" element={<ANTP />} />
+        <Route path="/Abonos" element={<Abonos />} />
+        <Route path="/NotaD" element={<NotaD />} />
+        <Route path="/Topro" element={<TopProducts />} />
       </Routes>
     </Router>
   );
