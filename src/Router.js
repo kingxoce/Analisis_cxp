@@ -5,6 +5,10 @@ import Documentos from './Componentes/Documentos';
 import TipoPagos from './Componentes/TipoPagos';
 import TopProveedores from './Componentes/TopProveedores';
 import Factura from './Componentes/Facturas';
+import Retenciones from './Componentes/Retenciones';
+import FacturaEspecial from './Componentes/FacturaEspecial';
+
+
 
 const AppRouter = () => {
   return (
@@ -16,6 +20,8 @@ const AppRouter = () => {
         <Route path="/tipopago" element={<TipoPagos />} />
         <Route path="/topproveedores" element={<TopProveedores />} />
         <Route path="/facturas" element={<Factura />} />
+        <Route path="/retenciones" element={<Retenciones />} />
+        <Route path="/facturaespecial" element={<FacturaEspecial />} />
       </Routes>
     </Router>
   );

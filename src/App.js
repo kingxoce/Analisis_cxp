@@ -25,6 +25,9 @@ const App = () => {
             <NavDropdown.Item href="/documentos">Documentos</NavDropdown.Item>
             <NavDropdown.Item href="/tipopago">Tipos de Pago</NavDropdown.Item>
             <NavDropdown.Item href="/facturas">Facturas</NavDropdown.Item>
+            <NavDropdown.Item href="/retenciones">Retenciones</NavDropdown.Item>
+            <NavDropdown.Item href="/facturaespecial">Factura Especial</NavDropdown.Item>
+
           </NavDropdown>
         </Nav>
       </div>
