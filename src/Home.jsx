@@ -4,7 +4,6 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { BsPeople, BsLayoutTextWindow, BsGraphUpArrow } from "react-icons/bs";
 import Button from 'react-bootstrap/Button';
-
 import './App.css';
 
 const Home = () => {
@@ -19,9 +18,9 @@ const Home = () => {
       <div className='botones'>
         <Container>
           <Row>
-            <Col sm={4}><Button variant="dark" title="Top Proveedores"><BsPeople /></Button></Col>
-            <Col sm={4}><Button variant="dark" title="Top Productos"><BsGraphUpArrow /></Button></Col>
-            <Col sm={4}><Button variant="dark" title="Facturas"><BsLayoutTextWindow /></Button></Col>
+            <Col sm={4}><Button variant="dark" title="Top Proveedores" as="a" href="/topproveedores"><BsPeople /></Button></Col>
+            <Col sm={4}><Button variant="dark" title="Top Productos" as="a" href="/topproveedores"><BsGraphUpArrow /></Button></Col>
+            <Col sm={4}><Button variant="dark" title="Facturas" as="a" href="/topproveedores"><BsLayoutTextWindow /></Button></Col>
           </Row>
           <Row>
             <Col sm={4}><p>Top Proveedores</p></Col>
