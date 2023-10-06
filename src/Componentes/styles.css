@@ -62,4 +62,24 @@ label {
     font-size: 14px;
 }
 
+.topproveedor {
+    margin: 0;
+    padding: 0;
+}
+
+.carousel {
+    margin: 0;
+    background-color: #039;
+}
+
+.topproveedor h1{
+    margin-bottom: 5%;
+}
+
+.tituloproveedor svg{
+    margin-top: 0;
+}
+
+
+
 
