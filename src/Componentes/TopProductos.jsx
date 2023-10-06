@@ -20,8 +20,8 @@ const TopProducts = () => {
             <img src={service2} className="d-block w-40 mx-auto" alt="First slide" style={{ height: 'auto' }} />
           </div>
           <Carousel.Caption>
-            <h3><b style={{background:'white'}}> 1. Servicio A </b></h3>
-            <p style={{background:'white'}}>Servicio</p>
+            <h3><b> 1. Servicio A </b></h3>
+            <p>Servicio</p>
           </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
@@ -29,8 +29,8 @@ const TopProducts = () => {
             <img src={service1} className="d-block w-40 mx-auto" alt="First slide" style={{ height: 'auto' }} />
           </div>
           <Carousel.Caption>
-            <h3 ><b style={{background:'white'}}> 2. Producto C </b></h3>
-            <p style={{background:'white'}}>Producto</p>
+            <h3 ><b> 2. Producto C </b></h3>
+            <p>Producto</p>
 
             
           </Carousel.Caption>
@@ -40,8 +40,8 @@ const TopProducts = () => {
             <img src={service1} className="d-block w-40 mx-auto" alt="First slide" style={{ height: 'auto' }} />
           </div>
           <Carousel.Caption>
-            <h3 ><b style={{background:'white'}}> 3. Producto A </b></h3>
-            <p style={{background:'white'}}>Producto</p>
+            <h3 ><b> 3. Producto A </b></h3>
+            <p>Producto</p>
           </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
@@ -49,8 +49,8 @@ const TopProducts = () => {
             <img src={service1} className="d-block w-40 mx-auto" alt="First slide" style={{ height: 'auto' }} />
           </div>
           <Carousel.Caption>
-            <h3 ><b style={{background:'white'}}> 4. Producto N </b></h3>
-            <p style={{background:'white'}}>Producto</p>
+            <h3 ><b> 4. Producto N </b></h3>
+            <p>Producto</p>
           </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
@@ -58,8 +58,8 @@ const TopProducts = () => {
             <img src={service1} className="d-block w-40 mx-auto" alt="First slide" style={{ height: 'auto' }} />
           </div>
           <Carousel.Caption>
-            <h3 ><b style={{background:'white'}}> 5. Producto C </b></h3>
-            <p style={{background:'white'}}>Producto</p>
+            <h3 ><b> 5. Producto C </b></h3>
+            <p>Producto</p>
           </Carousel.Caption>
         </Carousel.Item>
       </Carousel>

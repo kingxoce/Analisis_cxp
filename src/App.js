@@ -20,11 +20,17 @@ const App = () => {
           </Nav.Item>
           <NavDropdown title="Reportes" id="collapsible-nav-dropdown">
             <NavDropdown.Item href="/topproveedores">Top 5 Proveedores</NavDropdown.Item>
+            <NavDropdown.Item href="/topro">Top 5 Productos</NavDropdown.Item>
+            <NavDropdown.Item href="/ANT">Antiguedad de saldos General</NavDropdown.Item>
+            <NavDropdown.Item href="/ANTP">Antiguedad de saldos Proveedor</NavDropdown.Item>
           </NavDropdown>
           <NavDropdown title="Mantenimientos" id="collapsible-nav-dropdown">
             <NavDropdown.Item href="/documentos">Documentos</NavDropdown.Item>
             <NavDropdown.Item href="/tipopago">Tipos de Pago</NavDropdown.Item>
-            <NavDropdown.Item href="/facturas">Facturas</NavDropdown.Item>
+            <NavDropdown.Item href="/NotaD">Notas de Débito</NavDropdown.Item>
+          </NavDropdown>
+          <NavDropdown title="Movimientos" id="collapsible-nav-dropdown">
+            <NavDropdown.Item href="/Abonos">Abonos</NavDropdown.Item>
           </NavDropdown>
         </Nav>
       </div>
