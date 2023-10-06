@@ -81,7 +81,7 @@ const NotaD = () => {
       <div style={{ display: 'flex', alignItems: 'center', marginTop: '2%', marginBottom: '10%', marginLeft: '2%' }}>
         <h1 style={{ marginRight: '10px' }}><b>Notas de débito</b></h1>
         <Button variant="success" onClick={() => handleOpenModal(0)} style={{ borderRadius: '50%', padding: '8px' }}>
-          <BsPlus size={30} />
+          <BsPlus size={50} />
         </Button>
       </div>
       <div style={{ margin: '5%' }}>

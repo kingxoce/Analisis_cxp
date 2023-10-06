@@ -80,7 +80,7 @@ const ANT = () => {
       <div style={{ display: 'flex', alignItems: 'center', marginTop: '2%', marginBottom: '1%', marginLeft: '2%' }}>
         <h1 style={{ marginRight: '10px' }}><b>Antiguiedad de saldos</b></h1>
         <Button variant="success" onClick={() => handleOpenModal(0)} style={{ borderRadius: '50%', padding: '8px' }}>
-          <BsPrinter size={30} />
+          <BsPrinter size={50} />
         </Button>
       </div>
       <div style={{ display: 'flex', alignItems: 'center', marginTop: '1%', marginLeft: '2%' }}>

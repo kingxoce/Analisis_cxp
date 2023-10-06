@@ -83,7 +83,7 @@ const Abonos = () => {
       <div style={{ display: 'flex', alignItems: 'center', marginTop: '2%', marginBottom: '10%', marginLeft: '2%' }}>
         <h1 style={{ marginRight: '10px' }}><b>Abonos</b> </h1>
         <Button variant="success" onClick={() => handleOpenModal(0)} style={{ borderRadius: '50%', padding: '8px' }}>
-          <BsPlus size={30} />
+          <BsPlus size={50} />
         </Button>
       </div>
       <div style={{ margin: '5%' }}>
@@ -131,12 +131,14 @@ const Abonos = () => {
                 <td>{item.Usuario}</td>
                 <td>{item.total}</td>
                 <td style={{ textAlign: 'center' }}>
+                  
                   <Button variant="warning" onClick={() => handleOpenModal(item.id)}>
                     <BsPencil />
                   </Button>{' '}
                   <Button variant="danger">
                     <BsTrash />
                   </Button>
+                
                 </td>
               </tr>
             ))}
