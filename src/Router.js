@@ -10,6 +10,8 @@ import Abonos from './Componentes/Abonos';
 import ANT from './Componentes/Antiguedad_saldos';
 import ANTP from './Componentes/Antiguedad_saldosp';
 import TopProducts from './Componentes/TopProductos';
+import Contrasenia from './Componentes/Contrasenia';  
+import NotaCredito from './Componentes/NotaCredito';
 
 
 const AppRouter = () => {
@@ -27,6 +29,8 @@ const AppRouter = () => {
         <Route path="/Abonos" element={<Abonos />} />
         <Route path="/NotaD" element={<NotaD />} />
         <Route path="/Topro" element={<TopProducts />} />
+        <Route path="/contrasenia" element={<Contrasenia />} />
+        <Route path="/NotaCredito" element={<NotaCredito />} />
       </Routes>
     </Router>
   );

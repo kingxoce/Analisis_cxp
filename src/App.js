@@ -28,6 +28,7 @@ const App = () => {
             <NavDropdown.Item href="/documentos">Documentos</NavDropdown.Item>
             <NavDropdown.Item href="/tipopago">Tipos de Pago</NavDropdown.Item>
             <NavDropdown.Item href="/NotaD">Notas de Débito</NavDropdown.Item>
+            <NavDropdown.Item href="/contrasenia">Contraseña</NavDropdown.Item>
           </NavDropdown>
           <NavDropdown title="Movimientos" id="collapsible-nav-dropdown">
             <NavDropdown.Item href="/Abonos">Abonos</NavDropdown.Item>
