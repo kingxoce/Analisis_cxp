@@ -13,13 +13,22 @@ img {
     width: 30%;
 }
 
+.nav-link:focus, .nav-link:hover {
+    color: white;
+}
+
 .nav{
     position: relative;
     z-index: 2;
+    background-color: #039;
+}
+
+.dropdown-menu.show{
+    background-color: #039;
 }
 
 .nav a {
-    color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
     font-size: 20px;
 }
 
@@ -28,7 +37,8 @@ img {
 }
   
 .nav a:hover {
-    color: #039;
+    background-color: #039;
+    color: #ffdc00;
 }
 
 .home{
@@ -89,13 +99,12 @@ img {
     padding: 1%;
 }
 
-/*
 .btn svg {
-    width: 70px;
-    height: 70px;
+    width: 50px;
+    height: 50px;
     margin: 0;
 }
-*/
+
 .btn-dark:hover {
     box-shadow: 0 0 10px rgba(243, 208, 13, 0.5);
     background-color: #039;
