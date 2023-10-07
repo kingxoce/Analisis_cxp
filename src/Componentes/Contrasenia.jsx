@@ -1,31 +1,28 @@
 import React, { useState } from 'react';
-import { Button, Table, Modal, Form } from 'react-bootstrap';
-import { BsFileEarmarkSpreadsheet,BsPlus, BsPencil, BsTrash, BsSearch, BsCalendar,BsPrinter,BsSave,BsFillFileRuledFill,BsFillCalendarEventFill } from 'react-icons/bs';
-import {FaUserTie } from 'react-icons/fa';
-import { FaMoneyBill1Wave} from 'react-icons/fa6';
+import { Button, Table, Modal, Form, Alert } from 'react-bootstrap';
+import { BsPlus, BsPencil, BsTrash, BsSearch, BsCalendar, BsSave } from 'react-icons/bs';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import './styles.css';
-import { setSelectionRange } from '@testing-library/user-event/dist/utils';
 
 const Contrasenia = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
-  const [selectedName, setSelectedName] = useState(null);
-    const [selectedNames, setSelectedNames] = useState(null);
-    const [selectedTipod, setSelectedTipod] = useState(null);
-    const [selectedTipoServicio, setSelectedTipoServicio] = useState(null);
-    const [selectedFactura, setSelectedFactura] = useState(null);
-    const [selectedCuenta, setSelectedCuenta] = useState(null);
-    const [selectedRange, setSelectionRange] = useState(null);
+  const [selectedName, setSelectedName] = useState('');
+  const [selectedNames, setSelectedNames] = useState('');
+  const [selectedTipod, setSelectedTipod] = useState('');
+  const [selectedDoc, setSelectedDoc] = useState('');
+  const [selectedTipoServicio, setSelectedTipoServicio] = useState('');
+  const [selectedFactura, setSelectedFactura] = useState('');
+  const [selectedCuenta, setSelectedCuenta] = useState('');
+  const [selectedRange, setSelectedRange] = useState('');
   const [formErrors, setFormErrors] = useState({});
   const [modalId, setModalId] = useState(0);
   const [modalTitle, setModalTitle] = useState('');
-  const [searchTerm, setSearchTerm] = useState(''); // Declaración de searchTerm en el estado
+  const [searchTerm, setSearchTerm] = useState('');
   const [tableData, setTableData] = useState([
-    { id: 1, proveedor: 'CMD', Nit: '784564231',total: 'Q 20,000.00', Factura: '123131312', fecha: 'dd/mm/aaaa' },
-    { id: 2, proveedor: 'Super Mayen', Nit: '654654321', total: 'Q 7,000.00', Factura: '123131223',fecha: 'dd/mm/aaaa' },
-    { id: 3, proveedor: 'Aceros de Guatemala', Nit: '0978765432', total: 'Q 4,000.00', Factura: '634345345',fecha: 'dd/mm/aaaa' },
+    { id: 1, proveedor: 'CMD', Nit: '784564231', total: 'Q 20,000.00', Factura: '123131312', fecha: 'dd/mm/aaaa' },
+    { id: 2, proveedor: 'Super Mayen', Nit: '654654321', total: 'Q 7,000.00', Factura: '123131223', fecha: 'dd/mm/aaaa' },
+    { id: 3, proveedor: 'Aceros de Guatemala', Nit: '0978765432', total: 'Q 4,000.00', Factura: '634345345', fecha: 'dd/mm/aaaa' },
   ]);
 
   const handleCloseModal = () => {
@@ -39,27 +36,23 @@ const Contrasenia = () => {
       setSelectedName('');
       setSelectedDate(null);
       setSelectedTipod('');
-        setSelectedTipoServicio('');
-        setSelectedFactura('');
-        setSelectedNames('');
-      
-
-  
-
-
+      setSelectedTipoServicio('');
+      setSelectedFactura('');
+      setSelectedNames('');
+      setSelectedCuenta('');
+      setSelectedRange('');
+      setSelectedDoc('');
     } else {
-      setModalTitle('Editar Nota de credito');
-      // cargar los últimos campos agregados o editados
-      setSelectedName('Ingrese Monto ');
+      setModalTitle('Editar Nota de crédito');
+      setSelectedName('Ingrese Monto');
       setSelectedDate(new Date());
       setSelectedNames('Ingrese Detalle');
-      setSelectionRange('Proveedor');
-      selectedTipoServicio('Ingrese Tipo de Servicio');
-        setSelectedFactura('Ingrese Factura');
-        setSelectedTipod('Ingrese Tipo de Documento');
-        setSelectedCuenta('Ingrese Cuenta Bancaria');
-
-
+      setSelectedRange('Proveedor');
+      setSelectedTipoServicio('Ingrese Tipo de Servicio');
+      setSelectedFactura('Ingrese Factura');
+      setSelectedTipod('Ingrese Tipo de Documento');
+      setSelectedCuenta('Ingrese Cuenta Bancaria');
+        setSelectedDoc('Ingrese No. Documento');
     }
     setShowModal(true);
   };
@@ -85,31 +78,30 @@ const Contrasenia = () => {
 
     if (!selectedRange) {
       errors.Range = 'Seleccione Proveedor';
-    }   
+    }
 
     if (!selectedTipoServicio) {
       errors.tipoServicio = 'Ingrese Tipo de Servicio';
     }
 
-if (!selectedFactura) {
+    if (!selectedFactura) {
       errors.factura = 'Ingrese Factura';
     }
 
     if (!selectedTipod) {
       errors.tipod = 'Ingrese Tipo de Documento';
-    }   
+    }
 
     if (!selectedCuenta) {
-        errors.cuenta = 'Ingrese Cuenta Bancaria';
+      errors.cuenta = 'Ingrese Cuenta Bancaria';
+    }
+
+    if (!selectedDoc) {
+        errors.doc = 'Ingrese No. Documento';
         }
-        
 
-
-
-    // Agregar validaciones para los otros campos
     setFormErrors(errors);
     if (Object.keys(errors).length === 0) {
-      // Realiza la acción de guardar
       handleCloseModal();
     }
   };
@@ -122,16 +114,15 @@ if (!selectedFactura) {
     return (
       item.proveedor.toLowerCase().includes(searchTerm.toLowerCase()) ||
       item.Nit.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.tipop.toLowerCase().includes(searchTerm.toLowerCase())||
+      item.tipop.toLowerCase().includes(searchTerm.toLowerCase()) ||
       item.total.toLowerCase().includes(searchTerm.toLowerCase()) ||
       item.Factura.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.fecha.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.tipod.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.tipoServicio.toLowerCase().includes(searchTerm.toLowerCase())  ||
-        item.detalle.toLowerCase().includes(searchTerm.toLowerCase()) 
-
-
-
+      item.fecha.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.tipod.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.tipoServicio.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.detalle.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.cuenta.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.doc.toLowerCase().includes(searchTerm.toLowerCase())
     );
   });
 
@@ -200,11 +191,31 @@ if (!selectedFactura) {
           </Modal.Header>
           <Modal.Body style={{ maxHeight: 'calc(100vh - 200px)', overflowY: 'scroll' }}>
             <Form>
+              <Form.Group className="mb-3" controlId="formBasicEmail">
+                <Form.Label><b>Proveedor</b></Form.Label>
+                <Form.Select aria-label="Default select example" style={{ width: "50%" }} value={selectedRange} onChange={(e) => setSelectedRange(e.target.value)}>
+                  <option value=""> </option>
+                  <option value="Cemento Stack">Cemento Stack</option>
+                  <option value="Cementos Progreso">Cementos Progreso</option>
+                  <option value="Ferromax">Ferromax</option>
+                  <option value="EPA">EPA</option>
+                </Form.Select>
+                {formErrors.Range && <Alert variant="danger">{formErrors.Range}</Alert>}
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicEmail">
+                <Form.Label><b>No. Documento</b></Form.Label>
+                <Form.Select aria-label="Default select example" style={{ width: "32%" }}> value={selectedDoc} onChange={(e) => setSelectedDoc(e.target.value)}>    
 
-
-            <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <option value=""> </option>
+                  <option value="7834567899">7834567899</option>
+                  <option value="6987654321">6987654321</option>
+                  <option value="20987654321">20987654321</option>
+                  <option value="781018765321">781018765321</option>
+                </Form.Select>
+                {formErrors.nombres && <Alert variant="danger">{formErrors.nombres}</Alert>}
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label><b>Fecha</b></Form.Label>
-       
                 <div style={{ position: 'relative', width: "28%" }}>
                   <DatePicker
                     selected={selectedDate}
@@ -221,34 +232,20 @@ if (!selectedFactura) {
                     }}
                   />
                 </div>
+                {formErrors.fechaCotizacion && <Alert variant="danger">{formErrors.fechaCotizacion}</Alert>}
               </Form.Group>
-         
-        
-
               <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label><b>N0. Documento</b></Form.Label>
-            
-                <Form.Select aria-label="Default select example" style={{ width: "30%" }}>
-
-                
-
-                <DatePicker
-                    selected={selectedDate}
-                    onChange={handleDateChange}
-                    dateFormat="dd/MM/yyyy"
-                    className={`form-control ${formErrors.tipod ? 'is-invalid' : ''}`}
-                  />
-
-                    <option value="true"> </option>
-                  <option value="true">7834567899</option>
-                  <option value="false">6987654321</option>
-                  <option value="true">20987654321</option>
-                  <option value="false">781018765321</option>
-                </Form.Select>
-
-
+                <Form.Label><b>Detalle</b></Form.Label>
+                <Form.Control
+                  type="text"
+                  className={`form-control ${formErrors.nombres ? 'is-invalid' : ''}`}
+                  placeholder="Ingrese detalle Documento"
+                  style={{ width: "80%" }}
+                  value={selectedNames}
+                  onChange={(e) => setSelectedNames(e.target.value)}
+                />
+                {formErrors.nombres && <Alert variant="danger">{formErrors.nombres}</Alert>}
               </Form.Group>
-
               <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label><b>Monto</b></Form.Label>
                 <Form.Control
@@ -259,56 +256,8 @@ if (!selectedFactura) {
                   value={selectedName}
                   onChange={(e) => setSelectedName(e.target.value)}
                 />
-                {formErrors.nombre && <span className="invalid-feedback">{formErrors.nombre}</span>}
+                {formErrors.nombre && <Alert variant="danger">{formErrors.nombre}</Alert>}
               </Form.Group>
-
-
-
-                <Form.Group className="mb-12" controlId="formBasicEmail">
-                <Form.Label><b>Proveedor</b></Form.Label>
-                <Form.Select aria-label="Default select example" style={{ width: "60%" }}>
-                    <option value="true"> </option>
-                  <option value="true">Cemento Stack</option>
-                  <option value="false">Cementos Progreso</option>
-                  <option value="true">Ferromax</option>
-                  <option value="false">EPA</option>
-
-                  {formErrors.nombre && <span className="invalid-feedback">{formErrors.Range}</span>}
-
-                </Form.Select>
-
-                <Form.Group className="mb-12" controlId="formBasicEmail">
-                <Form.Label><b>Cuenta Bancaria</b></Form.Label>
-                <Form.Select aria-label="Default select example" style={{ width: "60%" }}>
-                    <option value="true"> </option>
-                  <option value="true">7564287-9</option>
-                  <option value="false">3546987-5</option>
-              
-
-                    {formErrors.nombre && <span className="invalid-feedback">{formErrors.cuenta}</span>}
-
-                </Form.Select>
-                </Form.Group>
-
-           
-
-
-                <Form.Group className="mb-12" controlId="formBasicEmail">
-                <Form.Label><b>Detalle</b></Form.Label>
-                <Form.Control
-                  type="text"
-                  className={`form-control ${formErrors.nombre ? 'is-invalid' : ''}`}
-                  placeholder="Ingrese detalle Documento"
-                  style={{ width: "80%" }}
-                  value={selectedNames}
-                  onChange={(e) => setSelectedNames(e.target.value)}
-                />
-                {formErrors.nombre && <span className="invalid-feedback">{formErrors.nombres}</span>}
-              </Form.Group>
-
-
-              </Form.Group>
-       
             </Form>
           </Modal.Body>
           <Modal.Footer>
